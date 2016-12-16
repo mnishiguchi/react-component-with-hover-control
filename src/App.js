@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NotificationSystem   from 'react-notification-system';
 
-import RussianDoll from './components/RussianDoll';
+import List from './components/List';
 require('./App.css');
 
 class App extends Component {
@@ -16,6 +16,12 @@ class App extends Component {
         }
       }
     };
+
+    const items = [
+      { id: 1, name: "hello" },
+      { id: 2, name: "world" },
+    ];
+
     return (
       <div className="App">
         <NotificationSystem
@@ -24,17 +30,18 @@ class App extends Component {
         />
         <div className="App-header">
           <h2>
-            React russian doll event detection
+            React component with hover control
             <br />
             <small>with event-sensitivity control</small>
           </h2>
         </div>
         <div className="App-intro">
 
-          <RussianDoll
+          <List
             onEnterHandler={this.onEnterHandler}
             onExitHandler={this.onExitHandler}
             options={this.options}
+            items={items}
           />
 
         </div>
@@ -70,7 +77,7 @@ class App extends Component {
     e.target.style.backgroundColor = "#caff70";
     this._addNotification( `${e.target.classList[0]} was ${e.type}'ed` );
   }
-  
+
   options = () => {
     return {
       sensitivity: 7,   // in pixels
