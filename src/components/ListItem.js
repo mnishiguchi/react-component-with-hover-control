@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 
-import eventSensitivityControl from '../lib/event-sensitivity-control';
+import EventSensitivityControl from '../lib/event-sensitivity-control';
 
 class ListItem extends Component {
 
   render() {
+    const {
+      item,
+      onEnterHandler,
+      onExitHandler,
+    } = this.props;
+
     return (
       <li
         className="ListItem"
-        onClick={e => this._handleAllEvents(e)}
-        onDoubleClick={e => this._handleAllEvents(e)}
-        onMouseOver={e => this._handleAllEvents(e)}
-        onMouseLeave={e => this._handleAllEvents(e)}
+        onMouseOver={e => onEnterHandler(e)}
+        onMouseLeave={e => onExitHandler(e)}
+        ref={node => this._node = node}
       >
-        hello
+        {item.name}
       </li>
     );
   }
@@ -25,17 +30,13 @@ class ListItem extends Component {
 
 
   componentDidMount() {
-    this._registerListItemeners([
-      '.ListItem',
-      '.ul',
-    ]);
+    console.log(`monted: ${this._node.innerHTML}`)
+
+    this._setListener();
   }
 
   componentWillUnmount() {
-    this._listeners.forEach(listener => {
-      listener.remove();
-    })
-    this._listeners = [];
+    this._removeListener();
   }
 
 
@@ -44,44 +45,27 @@ class ListItem extends Component {
   // ---
 
 
-  /**
-   * http://stackoverflow.com/a/32562118/3837223
-   * https://facebook.github.io/react/docs/events.html#mouse-events
-   */
-  _handleAllEvents = (event) => {
-    const eventType   = event.type;
-    const targetClass = event.target.classListItem[0];
-
-    // Ignore notification-system elements
-    const r = new RegExp("notification")
-    if (r.test(targetClass)) { return true; }
-  }
-
-  _registerListItemeners = (selectors) => {
-    this._listeners = [];
-    selectors.forEach(selector => {
-      const element = document.querySelector(selector);
-      this._listeners.push( this._setListItemener( element ) );
-    });
-  }
-
-  _setListItemener = (element) => {
-    // console.log(`${element.classListItem[0]} was registered`)
+  _setListener = () => {
     const {
       onEnterHandler,
       onExitHandler,
       options
     } = this.props;
 
-    const listener = new eventSensitivityControl(
-      element,
-      onEnterHandler,
-      onExitHandler,
-      options
-    );
+    // console.log(Object.keys(this.props));
+    // console.log(this.props.options);
 
-    return listener;
+    this._listener = new EventSensitivityControl(
+      this._node,
+      onEnterHandler,
+      onExitHandler
+    );
   }
-}
+
+  _removeListener = () => {
+    this._listener.remove();
+  }
+
+} // class
 
 export default ListItem;

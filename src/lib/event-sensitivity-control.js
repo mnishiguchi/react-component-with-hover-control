@@ -5,10 +5,10 @@ const ENGAGED        = 1;
 const defaultOptions = {
   sensitivity: 7,   // in pixels
   interval   : 400, // in milliseconds
-  timeout    : 0    // in milliseconds
+  timeout    : 400  // in milliseconds
 }
 
-class eventSensitivityControl {
+class EventSensitivityControl {
   /**
    * @param  element       - the target element
    * @param  onOverHandler - a handler for mouseover event
@@ -16,7 +16,7 @@ class eventSensitivityControl {
    * @param  options
    */
   constructor(element, onOverHandler, onOutHandler, options) {
-    console.log("constructor");
+    console.log("EventSensitivityControl:constructor");
 
     // Store the references to the passed-in values.
     this.element       = element;
@@ -160,4 +160,4 @@ class eventSensitivityControl {
 
 } // end class
 
-export default eventSensitivityControl;
+export default EventSensitivityControl;
