@@ -1,5 +1,5 @@
 {
-  "name": "react-component-with-hover-control",
+  "name": "react-event-sensitivity-control",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {

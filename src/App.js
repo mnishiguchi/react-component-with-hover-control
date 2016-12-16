@@ -1,41 +1,42 @@
 import React, { Component } from 'react';
 import NotificationSystem   from 'react-notification-system';
 
-import List from './components/List';
+import ComponentWithHoverControl from './components/ComponentWithHoverControl';
 require('./App.css');
 
 class App extends Component {
   render() {
-
-    const items = [
-      { id: 1, name: "ruby" },
-      { id: 2, name: "javascript" },
-      { id: 3, name: "elixir" },
-      { id: 4, name: "c++" },
-      { id: 5, name: "java" },
-    ];
-
+    const notificationStyles = {
+      NotificationItem: { // Override the notification item
+        DefaultStyle: { // SearchPagelied to every notification, regardless of the notification level
+          zIndex    : 10,
+          fontSize  : '20px',
+          background: 'rgba(22, 82, 124, 0.8)',
+          color     : 'rgb(202,178,161)'
+        }
+      }
+    };
     return (
       <div className="App">
         <NotificationSystem
           ref="notificationSystem"
+          style={notificationStyles}
         />
-
         <div className="App-header">
           <h2>
-            React list component
+            React component
             <br />
-            <small>with event-sensitivity control</small>
+            <small>with hover-sensitivity control</small>
           </h2>
         </div>
-
         <div className="App-intro">
-          <List
+
+          <ComponentWithHoverControl
             onEnterHandler={this.onEnterHandler}
             onExitHandler={this.onExitHandler}
             options={this.options}
-            items={items}
           />
+
         </div>
       </div>
     );
@@ -66,8 +67,8 @@ class App extends Component {
 
   onExitHandler = (e) => {
     // console.log('onExitHandler was invoked')
-    e.target.style.backgroundColor = null; // "#caff70"
-    this._addNotification( `${e.target.innerHTML} was ${e.type}'ed` );
+    e.target.style.backgroundColor = "#caff70";
+    this._addNotification( `${e.target.classList[0]} was ${e.type}'ed` );
   }
 
   options = () => {

@@ -5,7 +5,7 @@ const ENGAGED        = 1;
 const defaultOptions = {
   sensitivity: 7,   // in pixels
   interval   : 400, // in milliseconds
-  timeout    : 400  // in milliseconds
+  timeout    : 0    // in milliseconds
 }
 
 class EventSensitivityControl {
@@ -16,7 +16,7 @@ class EventSensitivityControl {
    * @param  options
    */
   constructor(element, onOverHandler, onOutHandler, options) {
-    console.log("EventSensitivityControl:constructor");
+    console.log("constructor");
 
     // Store the references to the passed-in values.
     this.element       = element;
