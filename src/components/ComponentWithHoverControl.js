@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
+import uuid from 'uuid/v1'
 
 import HoverControl from '../lib/hover-control'
 
 class ComponentWithHoverControl extends Component {
+  constructor(props) {
+    super(props)
+    this._elementId = `hover-control-${uuid()}`
+  }
+
   render() {
     return (
       <section
         className="ComponentWithHoverControl"
+        id={this._elementId}
       >
         ComponentWithHoverControl
       </section>
@@ -20,19 +27,18 @@ class ComponentWithHoverControl extends Component {
 
 
   componentDidMount() {
-    this._listeners = []
+    this._setListenerById()
+  }
 
-    this._setListenersBySelectors([
-      '.ComponentWithHoverControl',
-    ])
+  componentDidUpdate() {
+    this._listener.remove()
+    this._setListenerById()
   }
 
   componentWillUnmount() {
-    this._listeners.forEach(listener => {
-      listener.remove()
-    })
-    this._listeners = []
+    this._listener.remove()
   }
+
 
 
   // ---
@@ -40,26 +46,13 @@ class ComponentWithHoverControl extends Component {
   // ---
 
 
-  _setListenersBySelectors = (selectors) => {
-    this._listeners = []
-    selectors.forEach(selector => {
-      this._setListenerBySelector(selector)
-    })
-  }
-
-  _setListenerBySelector = (selector) => {
-    // console.log(`${element.classList[0]} was registered`)
-    const listener = new HoverControl(
-      document.querySelector(selector),
+  _setListenerById = () => {
+    this._listener = new HoverControl(
+      document.getElementById(this._elementId),
       this.props.onEnterHandler,
       this.props.onExitHandler,
-      this.props.options
+      {...this.props}
     )
-
-    // Store the reference to this listener.
-    if (!this._listeners.includes(listener)) {
-      this._listeners.push(listener)
-    }
   }
 }
 

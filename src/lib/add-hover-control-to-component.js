@@ -48,7 +48,7 @@ function addHoverControlToComponent(MyComponent) {
         document.getElementById(id),
         this.props.onEnterHandler,
         this.props.onExitHandler,
-        this.props.options
+        {...this.props}
       )
     }
   }

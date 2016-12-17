@@ -47,20 +47,38 @@ class App extends Component {
 
         <form className="HoverControlOptions">
           <div>
-            <strong>Sensitivity:</strong>{' '}
-            <span className="text-muted">
-              {this.state.sensitivity}
-            </span>
-            {' / '}
-            <strong>Timeout:</strong>{' '}
-            <span className="text-muted">
-              {this.state.timeout}
-            </span>
-            {' / '}
-            <strong>Interval:</strong>{' '}
-            <span className="text-muted">
-              {this.state.interval}
-            </span>
+            <label htmlFor="sensitivity">
+              <strong>sensitivity:</strong>{' '}
+            </label>
+            <input
+              id="sensitivity"
+              type="number"
+              step="5"
+              value={this.state.sensitivity}
+              onChange={event => {this.setState({ sensitivity: event.target.value })}}
+            />
+            { ' ' }
+            <label htmlFor="interval">
+              <strong>interval:</strong>{' '}
+            </label>
+            <input
+              id="interval"
+              type="number"
+              step="100"
+              value={this.state.interval}
+              onChange={event => {this.setState({ interval: event.target.value })}}
+            />
+            { ' ' }
+            <label htmlFor="timeout">
+              <strong>timeout:</strong>{' '}
+            </label>
+            <input
+              id="timeout"
+              type="number"
+              step="100"
+              value={this.state.timeout}
+              onChange={event => {this.setState({ timeout: event.target.value })}}
+            />
           </div>
         </form>
 
@@ -69,13 +87,17 @@ class App extends Component {
           <ComponentWithHoverControl
             onEnterHandler={this.onEnterHandler}
             onExitHandler={this.onExitHandler}
-            options={this.state.options}
+            sensitivity={this.state.sensitivity}
+            interval={this.state.interval}
+            timeout={this.state.timeout}
           />
 
           <Composition
             onEnterHandler={this.onEnterHandler}
             onExitHandler={this.onExitHandler}
-            options={this.options}
+            sensitivity={this.state.sensitivity}
+            interval={this.state.interval}
+            timeout={this.state.timeout}
           />
 
         </div>
