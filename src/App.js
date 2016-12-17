@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NotificationSystem   from 'react-notification-system';
 
 import ComponentWithHoverControl from './components/ComponentWithHoverControl';
+import Composition from './components/Composition';
 
 require('./App.css');
 
@@ -40,6 +41,12 @@ class App extends Component {
             onExitHandler={this.onExitHandler}
             options={this.options}
           />
+          
+          <Composition
+            onEnterHandler={this.onEnterHandler}
+            onExitHandler={this.onExitHandler}
+            options={this.options}
+          />
 
         </div>
       </div>
@@ -65,12 +72,12 @@ class App extends Component {
 
   onEnterHandler = (e) => {
     e.target.style.backgroundColor = "#ff70ca";
-    this._addNotification( `${e.target.classList[0]} was ${e.type}'d` );
+    this._addNotification( `${e.target.id || e.target.classList[0]} was ${e.type}'d` );
   }
 
   onExitHandler = (e) => {
     e.target.style.backgroundColor = "#caff70";
-    this._addNotification( `${e.target.classList[0]} was ${e.type}'d` );
+    this._addNotification( `${e.target.id || e.target.classList[0]} was ${e.type}'d` );
   }
 
   options = () => {

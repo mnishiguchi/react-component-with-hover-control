@@ -8,7 +8,7 @@ const defaultOptions = {
   timeout    : 0    // in milliseconds
 }
 
-class EventSensitivityControl {
+class HoverControl {
   /**
    * @param  element       - the target element
    * @param  onOverHandler - a handler for mouseover event
@@ -16,7 +16,7 @@ class EventSensitivityControl {
    * @param  options
    */
   constructor(element, onOverHandler, onOutHandler, options) {
-    console.log("EventSensitivityControl:constructor");
+    console.log("HoverControl:constructor");
 
     // Store the references to the passed-in values.
     this.element       = element;
@@ -160,4 +160,4 @@ class EventSensitivityControl {
 
 } // end class
 
-export default EventSensitivityControl;
+export default HoverControl;
