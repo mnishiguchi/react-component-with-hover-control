@@ -18,6 +18,17 @@ const notificationStyle = {
 };
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      sensitivity: 7,   // in pixels
+      interval   : 400, // in milliseconds
+      timeout    : 0,   // in milliseconds
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -34,14 +45,33 @@ class App extends Component {
           </h2>
         </div>
 
+        <form className="HoverControlOptions">
+          <div>
+            <strong>Sensitivity:</strong>{' '}
+            <span className="text-muted">
+              {this.state.sensitivity}
+            </span>
+            {' / '}
+            <strong>Timeout:</strong>{' '}
+            <span className="text-muted">
+              {this.state.timeout}
+            </span>
+            {' / '}
+            <strong>Interval:</strong>{' '}
+            <span className="text-muted">
+              {this.state.interval}
+            </span>
+          </div>
+        </form>
+
         <div className="App-intro">
 
           <ComponentWithHoverControl
             onEnterHandler={this.onEnterHandler}
             onExitHandler={this.onExitHandler}
-            options={this.options}
+            options={this.state.options}
           />
-          
+
           <Composition
             onEnterHandler={this.onEnterHandler}
             onExitHandler={this.onExitHandler}
@@ -82,9 +112,9 @@ class App extends Component {
 
   options = () => {
     return {
-      sensitivity: 7,   // in pixels
-      interval   : 200, // in milliseconds
-      timeout    : 400  // in milliseconds
+      sensitivity: this.state.sensitivity,  // in pixels
+      interval   : this.state.interval,     // in milliseconds
+      timeout    : this.state.timeout,      // in milliseconds
     };
   };
 
