@@ -23,6 +23,7 @@ section {
   color: #666;
   border: 1px solid #333;
   background: #caff70;
+  border-radius: 50%;
 }
 .ComponentWithHoverControl {
   border: 4px solid #666;

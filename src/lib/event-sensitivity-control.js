@@ -16,7 +16,7 @@ class EventSensitivityControl {
    * @param  options
    */
   constructor(element, onOverHandler, onOutHandler, options) {
-    console.log("constructor");
+    console.log("EventSensitivityControl:constructor");
 
     // Store the references to the passed-in values.
     this.element       = element;
